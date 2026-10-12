@@ -124,7 +124,7 @@ class MemoApp:
         style.configure("TCheckbutton", background=c["panel"], foreground=c["text"])
         bar = tk.Frame(self.root, bg=c["panel"], height=66, highlightbackground=c["line"], highlightthickness=1)
         bar.pack(fill="x")
-        tk.Label(bar, text="✿  Goorm 메모", bg=c["panel"], fg="#d76589", font=("Segoe UI", 17, "bold")).pack(side="left", padx=(22, 10))
+        tk.Button(bar, text="✿  Goorm 메모", command=self.go_home, bg=c["panel"], fg="#d76589", activebackground=c["panel"], activeforeground="#b94e76", borderwidth=0, relief="flat", cursor="hand2", font=("Segoe UI", 17, "bold")).pack(side="left", padx=(22, 10))
         tk.Label(bar, text="나만의 작은 기록장", bg=c["panel"], fg=c["muted"], font=("Segoe UI", 9)).pack(side="left")
         self.query = tk.StringVar()
         self.query.trace_add("write", lambda *_: self.refresh_list())
@@ -184,6 +184,12 @@ class MemoApp:
 
     def select_tab(self, tab):
         self.active_tab = tab
+        self.refresh()
+
+    def go_home(self):
+        self.query.set("")
+        self.active_tab = "전체"
+        self.cards_canvas.yview_moveto(0)
         self.refresh()
 
     def refresh_list(self):

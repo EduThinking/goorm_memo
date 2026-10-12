@@ -21,7 +21,7 @@ class Element {
   focus() {}
 }
 
-const ids = ['grid', 'overlay', 'note-title', 'note-body', 'note-type', 'checklist-editor', 'checklist-rows', 'add-item', 'delete', 'modal-error', 'search', 'new', 'cancel', 'save', 'export', 'count-all', 'count-memo', 'count-task', 'count-code', 'count-link', 'count-other'];
+const ids = ['grid', 'overlay', 'note-title', 'note-body', 'note-type', 'checklist-editor', 'checklist-rows', 'add-item', 'delete', 'modal-error', 'search', 'home', 'new', 'cancel', 'save', 'export', 'count-all', 'count-memo', 'count-task', 'count-code', 'count-link', 'count-other'];
 const elements = Object.fromEntries(ids.map(id => [id, new Element()]));
 const stored = new Map();
 const document = {
@@ -80,4 +80,8 @@ confirmDelete = true;
 deleteCard.children[1].dispatch('click');
 assert.equal(JSON.parse(stored.get('goorm-postit-preview-v1')).length, 4);
 assert.equal(elements['count-all'].textContent, 4);
+elements.search.value = '검색어';
+elements.home.dispatch('click');
+assert.equal(elements.search.value, '');
+assert.equal(vm.runInContext('activeFilter', context), '전체');
 console.log('preview creation and persistence: ok');

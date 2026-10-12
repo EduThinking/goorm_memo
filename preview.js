@@ -224,6 +224,14 @@ function saveNote() {
 }
 
 document.getElementById("new").addEventListener("click", () => openEditor());
+document.getElementById("home").addEventListener("click", () => {
+  closeEditor();
+  activeFilter = "전체";
+  searchInput.value = "";
+  document.querySelectorAll("[data-filter]").forEach(button => button.classList.toggle("active", button.dataset.filter === "전체"));
+  document.querySelector(".board").scrollTop = 0;
+  render();
+});
 document.getElementById("cancel").addEventListener("click", closeEditor);
 document.getElementById("save").addEventListener("click", saveNote);
 document.getElementById("delete").addEventListener("click", () => {
